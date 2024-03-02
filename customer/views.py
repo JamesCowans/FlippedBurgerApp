@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, request
+from django.views import generic
 from django.http import HttpResponse
 
 # Create your views here.
-def my_customer(request):
-    return HttpResponse("Hello, how are all my customers?")
+class index(request):
+    def index(request):
+        return render(request, 'customer/index.html')
