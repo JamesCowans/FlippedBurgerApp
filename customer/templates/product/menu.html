@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+<h1>Our Menu</h1>
+</div>
+<div class="col-lg-3">
+{% for category in categories %}
+<ul class="list-group border-0 categories_list">
+<li class="list-group-item border-0 p-0 ">
+    <a href="" class="btn btn-block text-left">
+        {{ category.name }}
+    </a>
+</li>
+{% endfor %}
+</ul>
+</div>
+<div class="col-lg-6">
+    <h2>Menu Options</h2>
+
+</div>
+<div class="row no-gutters">
+    {% for product in products %}
+    <div class="col-sm-6">
+        <div class="card product">
+            <div class="item">
+                <div class="item-image">
+                    <img src="{{ product.image.url }}"alt="" class="img-fluid rounded-0">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body text-center">
+        {{ product.name }}
+        <hr>
+        <span>${{ product.price }}</span>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
