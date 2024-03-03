@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from customer.views import index
+from customer.views import customer
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('customer.urls', namespace='customer')),
 ]
 
 if settings.DEBUG:
