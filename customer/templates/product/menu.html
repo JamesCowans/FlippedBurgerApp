@@ -1,42 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block title %}
+{%if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-<h1>Our Menu</h1>
-</div>
-<div class="col-lg-3">
-{% for category in categories %}
-<ul class="list-group border-0 categories_list">
-<li class="list-group-item border-0 p-0 ">
-    <a href="" class="btn btn-block text-left">
-        {{ category.name }}
-    </a>
-</li>
-{% endfor %}
-</ul>
-</div>
-<div class="col-lg-6">
-    <h2>Menu Options</h2>
+<div id="sidebar">
+    <h3>Categories</h3>
+    <ul>
+        <li {% if not category %}class="selected"{% endif %}>
+            <a href = "{% url 'customer:product_list' %}">All</a>
+        </li>
+         {% for c in catagories %}
+            <li {% if catagory.slug == c.slug %}class="selected"{% endif %}>
+                <a href ="{{ c.get_absolute_url }}">{{ c.name}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div> 
 
-</div>
-<div class="row no-gutters">
+<div id="main" class="product-list">
+    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
     {% for product in products %}
-    <div class="col-sm-6">
-        <div class="card product">
-            <div class="item">
-                <div class="item-image">
-                    <img src="{{ product.image.url }}"alt="" class="img-fluid rounded-0">
-                
-                </div>
-            </div>
+        <div class="item">
+            <a href="{{ product.get_absolute_url }}">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% endif %}">_
+            </a>
+            <br>
+            ${{ product.price }}
         </div>
-    </div>
-    <div class="card-body text-center">
-        {{ product.name }}
-        <hr>
-        <span>${{ product.price }}</span>
-    </div>
     {% endfor %}
 </div>
-
-{% endblock content %}
+{% endblock %}
